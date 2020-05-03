@@ -72,13 +72,13 @@ let top_posts = async (req, res, next) => {
     posts = JSON.parse(posts).filter(function(post){
       JSON.parse(comments).filter(function(comment){
         if(comment.postId == post.id){
-          post["count"] ? post["count"]++ : (post["count"] = 1)
+          post["total_number_of_comments"] ? post["total_number_of_comments"]++ : (post["total_number_of_comments"] = 1)
         }
         return true;
       })
       return true;
     });
-    posts= posts.sort((a, b) => (a.count > b.count) ? 1 : -1); // sort by count desc
+    posts= posts.sort((a, b) => (a.total_number_of_comments > b.total_number_of_comments) ? 1 : -1); // sort by count desc
 
   return res.status(201).json({
     top_posts: posts,
